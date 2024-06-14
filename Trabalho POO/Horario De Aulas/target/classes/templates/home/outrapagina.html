@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Horário</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Editar Horário</h1>
+</header>
+<nav>
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/professor}">Professores</a></li>
+        <li><a th:href="@{/listamaterias}">Matérias</a></li>
+    </ul>
+</nav>
+<main>
+    <form action="/horario/salvar" method="post" th:action="@{/horario/salvar}" th:object="${horario}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <label for="materia">Matéria:</label>
+        <select id="materia" name="materia" required>
+            <option value="">Selecione uma matéria</option>
+            <option value="Materia 1">Sistemas Operacionais</option>
+            <option value="Materia 2">Fundamentos Engenharia de Software</option>
+            <option value="Materia 3">Programação Orientada a Objetos</option>
+            <option value="Materia 4">Interface Homem Computador</option>
+            <option value="Materia 5">Redes</option>
+        </select><br><br>
+
+        <label for="professor">Professor:</label>
+        <select id="professor" name="professor" required>
+            <option value="">Selecione um professor</option>
+            <option value="Professor A">Leanderson Andre</option>
+            <option value="Professor B">Paulo Bosfield</option>
+            <option value="Professor C">Rodrigo Dornel</option>
+        </select><br><br>
+
+        <label for="diaSemana">Dia da Semana:</label>
+        <select id="diaSemana" name="diaSemana" required>
+            <option value="">Selecione um dia</option>
+            <option value="Segunda-feira">Segunda-feira</option>
+            <option value="Terça-feira">Terça-feira</option>
+            <option value="Quarta-feira">Quarta-feira</option>
+            <option value="Quinta-feira">Quinta-feira</option>
+            <option value="Sexta-feira">Sexta-feira</option>
+        </select><br><br>
+
+        <label for="periodo">Período:</label>
+        <select id="periodo" name="periodo" required>
+            <option value="">Selecione um período</option>
+            <option value="1">18:50 - 20:30</option>
+            <option value="2">20:50 - 22:30</option>
+        </select><br><br>
+
+        <label for="sala">Sala:</label>
+        <input type="text" id="sala" name="sala" required><br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+<footer>
+    <p>&copy; Guilherme Graper.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    <title>Criar novo Professor</title>
+</head>
+<header>
+    <h1>Bem-vindo ao Sistema de Horários</h1>
+</header>
+<nav>
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a href="/professor">Professores</a></li>
+        <li><a href="/listamaterias">Materias</a></li>
+    </ul>
+</nav>
+<body>
+<h1>Criar Professor</h1>
+<h2>Coloque os dados abaixo para criar um novo Professor</h2>
+
+<br>
+<form th:action="@{/professor/criar}" th:object="${entidade}" method="post">
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input id="nome" type="text" placeholder="nome" th:field="*{nome}"></td>
+            <td><input id="sobrenome" type="text" placeholder="sobrenome" th:field="*{sobrenome}"></td>
+            <td><button type="submit" id="btn">Criar</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3><a th:href="@{/}"class="botao-verde">Voltar ao Início</a><br><a th:href="@{/professor}"class="botao-verde">Volar à Listagem</a></h3>
+    <br>
+    <h7 th:text="${erro}" class="erro"></h7>
+</form>
+</body>
+<footer>
+    <p>&copy; Guilherme Graper.</p>
+</footer>
+</html>

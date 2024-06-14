@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Horários dos Cursos</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Bem-vindo ao Sistema de Horários</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/professor">Professores</a></li>
+        <li><a href="/listamaterias">Matérias</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Horários dos Cursos</h1>
+    <section>
+        <h2>Sistemas de Informação</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Dia da Semana</th>
+                <th class="light-green-bg">18:50 às 20:30</th>
+                <th>Professor</th>
+                <th class="light-green-bg">20:50 às 22:30</th>
+                <th>Professor</th>
+                <th>Número da Sala</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Segunda-feira</td>
+                <td class="light-green-bg">BDA I</td>
+                <td>Dornel</td>
+                <td class="light-green-bg">ALPC II</td>
+                <td>Glaucio</td>
+                <td>C 323</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Terça-feira</td>
+                <td class="light-green-bg">ESTCOMP</td>
+                <td>Gianinni</td>
+                <td class="light-green-bg">APS I</td>
+                <td>Rafael</td>
+                <td>C 322</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Quarta-feira</td>
+                <td class="light-green-bg">ESTCOMP</td>
+                <td>Gianinni</td>
+                <td class="light-green-bg">ALPC II</td>
+                <td>Glaucio</td>
+                <td>C 320</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Quinta-feira</td>
+                <td class="light-green-bg">BDA I</td>
+                <td>Dornel</td>
+                <td class="light-green-bg">APS I</td>
+                <td>Rafael</td>
+                <td>C 325</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Sexta-feira</td>
+                <td class="light-green-bg">VEXT I</td>
+                <td>Romão</td>
+                <td class="light-green-bg">VEXT I</td>
+                <td>Romão</td>
+                <td>C 314</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <h2>Engenharia de Software</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Dia da Semana</th>
+                <th class="light-green-bg">18:50 às 20:30</th>
+                <th>Professor</th>
+                <th class="light-green-bg">20:50 às 22:30</th>
+                <th>Professor</th>
+                <th>Número da Sala</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Segunda-feira</td>
+                <td class="light-green-bg">FENS</td>
+                <td>Georgia</td>
+                <td class="light-green-bg">DESWEB</td>
+                <td>Walter</td>
+                <td>C 324</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Terça-feira</td>
+                <td class="light-green-bg">ALPC</td>
+                <td>Marcia</td>
+                <td class="light-green-bg">IHC</td>
+                <td>Pâmela</td>
+                <td>C 322</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Quarta-feira</td>
+                <td class="light-green-bg">MAD</td>
+                <td>Lúcia</td>
+                <td class="light-green-bg">ALPC</td>
+                <td>Márcia</td>
+                <td>C 317</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Quinta-feira</td>
+                <td class="light-green-bg">DESWEB</td>
+                <td>Walter</td>
+                <td class="light-green-bg">FENS</td>
+                <td>Georgia</td>
+                <td>C 116</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            <tr>
+                <td>Sexta-feira</td>
+                <td class="light-green-bg">MAD</td>
+                <td>Lúcia</td>
+                <td class="light-green-bg">IHC</td>
+                <td>Pâmela</td>
+                <td>C 316</td>
+                <td><button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <a href="/outrapagina" class="botao-azul">Configurar horário de Sistemas de Informação</a>
+    <a href="/outrapagina2" class="botao-azul">Configurar horário de Engenharia de Software</a>
