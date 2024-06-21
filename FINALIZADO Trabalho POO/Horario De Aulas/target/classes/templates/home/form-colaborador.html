@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Colaborador</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Cadastro de Colaborador</h1>
+</header>
+<nav> <!-- Menu de navegação -->
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/colaboradores/form}">Cadastrar Professores</a></li>
+        <li><a th:href="@{/colaboradores/listar}">Listar Professores</a></li>
+        <li><a th:href="@{/disciplinas/form}">Cadastrar Disciplinas</a></li>
+        <li><a th:href="@{/disciplinas/listar}">Listar Disciplinas</a></li>
+        <li><a th:href="@{/horarios/form}">Cadastrar Horários</a></li>
+        <li><a th:href="@{/horarios/listar}">Listar Horários</a></li>
+    </ul>
+</nav><br>
+<main>
+    <form th:action="@{/colaboradores/salvar}" th:object="${colaborador}" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required><br>
+
+        <label for="funcao">Função:</label>
+        <input type="text" id="funcao" th:field="*{funcao}" required><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+</body>
+</html>

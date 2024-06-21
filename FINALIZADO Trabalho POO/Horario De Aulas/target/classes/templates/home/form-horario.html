@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Horário de Aula</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Cadastro de Horário de Aula</h1>
+</header>
+<nav><!-- Menu de navegação -->
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/colaboradores/form}">Cadastrar Professores</a></li>
+        <li><a th:href="@{/colaboradores/listar}">Listar Professores</a></li>
+        <li><a th:href="@{/disciplinas/form}">Cadastrar Disciplinas</a></li>
+        <li><a th:href="@{/disciplinas/listar}">Listar Disciplinas</a></li>
+        <li><a th:href="@{/horarios/form}">Cadastrar Horários</a></li>
+        <li><a th:href="@{/horarios/listar}">Listar Horários</a></li>
+    </ul>
+</nav><br>
+<main>
+    <form th:action="@{/horarios/salvar}" th:object="${horarioAula}" method="post">
+        <label for="diaSemana">Dia da Semana:</label>
+        <select id="diaSemana" th:field="*{diaSemana}" required>
+            <option value="Segunda-feira">Segunda-feira</option>
+            <option value="Terça-feira">Terça-feira</option>
+            <option value="Quarta-feira">Quarta-feira</option>
+            <option value="Quinta-feira">Quinta-feira</option>
+            <option value="Sexta-feira">Sexta-feira</option>
+        </select><br>
+
+        <label for="curso">Curso:</label>
+        <select id="curso" th:field="*{curso}" required>
+            <option value="Sistemas de Informação">Sistemas de Informação</option>
+            <option value="Engenharia de Software">Engenharia de Software</option>
+        </select><br>
+
+        <label for="periodo">Período:</label>
+        <select id="periodo" th:field="*{periodo}" required><!-- vincula o campo ao atributo 'periodo' do objeto 'HorarioAula'-->
+            <option value="Periodo 1">Periodo 1 (18:50 às 20:30)</option>
+            <option value="Periodo 2">Periodo 2 (20:50 às 22:30)</option>
+        </select><br>
+
+        <label for="disciplina">Disciplina:</label>
+        <select id="disciplina" th:field="*{disciplina}" required>
+            <option th:each="disciplina : ${disciplinas}" th:value="${disciplina.id}" th:text="${disciplina.nome}">Disciplina</option>
+        </select><br>
+
+        <label for="professor">Professor:</label>
+        <select id="professor" th:field="*{professor}" required>
+            <option th:each="professor : ${colaboradores}" th:value="${professor.id}" th:text="${professor.nome}">Professor</option>
+        </select><br>
+
+        <label for="sala">Sala:</label>
+        <input type="text" id="sala" th:field="*{sala}" <!--vincula o campo ao atributo 'sala' do objeto 'HorarioAula' -->
+
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+</body>
+</html>

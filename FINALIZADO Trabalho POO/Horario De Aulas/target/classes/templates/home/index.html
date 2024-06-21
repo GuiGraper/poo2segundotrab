@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Horários dos Cursos</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script>
+        function editarTabela(botao) {
+            var tr = botao.closest('tr'); // encontrar a linha (tr) pai do botão
+            var camposEditaveis = tr.querySelectorAll('.editavel'); // campos  editáveis selecionando tudo
+
+            // edição dos campos editáveis
+            camposEditaveis.forEach(function(campo) {
+                var valorAtual = campo.textContent.trim();// valor atual do campo
+                var input = document.createElement('input');
+                input.className = 'campo-editavel';
+                input.value = valorAtual;
+                //campo.innerHTML = 'teste';
+                campo.innerHTML = '';//limpar
+                campo.appendChild(input);
+            });
+
+            // Muda o texto do botão de editar
+            botao.textContent = 'Salvar';
+            botao.onclick = function() {
+                salvarEdicao(tr);//salvar edit
+            };
+        }
+
+        function salvarEdicao(tr) {
+            var camposEditaveis = tr.querySelectorAll('.campo-editavel');
+
+            // atualizar os campos editáveis com os valores dos inputs
+            camposEditaveis.forEach(function(input) {
+                var novoValor = input.value;//vai pegar o valor ja editardo
+                var campo = document.createElement('td');
+                campo.textContent = novoValor;// passei aqui
+                campo.classList.add('editavel'); //  classe
+                input.parentElement.replaceWith(campo);// o input pelo td
+            });
+
+            // o texto volta para ser editar
+            var botao = tr.querySelector('.btn-editar');
+            botao.textContent = 'Editar';
+            botao.onclick = function() {
+                editarTabela(botao);//edita a tabela toda quando clicado (os inputs tem que alterar no css)
+            };
+        }
+
+        function mostrarSalas(botao) {
+            var tr = botao.closest('tr'); //  linha (tr)  clicado
+            var tdNumeroSala = tr.querySelector('.numero-sala'); // onde esta  o número da sala
+
+            // salas pré-definidas, colocar do bloco C
+            var selectSalas = document.createElement('select');
+            selectSalas.className = 'sala-dropdown';
+            selectSalas.innerHTML = `
+                <option value="C 323">C 323</option>
+                <option value="C 322">C 322</option>
+                <option value="C 320">C 320</option>
+                <option value="C 325">C 325</option>
+                <option value="C 314">C 314</option>
+                <option value="C 324">C 324</option>
+                <option value="C 317">C 317</option>
+                <option value="C 116">C 116</option>
+                <option value="C 316">C 316</option>
+            `;
+
+            // Substituir o conteúdo da célula pelo select
+            tdNumeroSala.innerHTML = '';
+            tdNumeroSala.appendChild(selectSalas);
+
+            // botão  confirmar
+            var btnConfirmar = document.createElement('button');
+            btnConfirmar.textContent = 'Confirmar';
+            btnConfirmar.className = 'btn-confirmar';
+            btnConfirmar.onclick = function() {
+                //confirmarEscolhaSala('self');
+                confirmarEscolhaSala(tr); //CONFIRMA A SALA
+            };
+            tdNumeroSala.appendChild(btnConfirmar);
+        }
+
+        function confirmarEscolhaSala(tr) {
+            var selectSalas = tr.querySelector('.sala-dropdown');// pega os select da ssalas
+            var salaSelecionada = selectSalas.value;
+            var tdNumeroSala = tr.querySelector('.numero-sala');//td do número da sala
+
+            tdNumeroSala.textContent = salaSelecionada; //texto do td com a sala selecionada
+        }
+
+        function limparTabelas() {
+            var tabelas = document.querySelectorAll('table tbody');
+            tabelas.forEach(function(tbody) {
+                tbody.innerHTML = ''; //Limpar o conteúdo
+            });
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1>Bem-vindo ao Sistema de Horários</h1>
+</header>
+<nav><!-- Menu de navegação -->
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/colaboradores/form}">Cadastrar Colaboradores</a></li>
+        <li><a th:href="@{/colaboradores/listar}">Listar Colaboradores</a></li>
+        <li><a th:href="@{/disciplinas/form}">Cadastrar Disciplinas</a></li>
+        <li><a th:href="@{/disciplinas/listar}">Listar Disciplinas</a></li>
+        <li><a th:href="@{/horarios/form}">Cadastrar Horários</a></li>
+        <li><a th:href="@{/horarios/listar}">Listar Horários</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Horários dos Cursos</h1><!-- mudar a posição prpo header-->
+    <section>
+        <h2>Sistemas de Informação</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Dia da Semana</th>
+                <th class="light-green-bg">18:50 às 20:30</th>
+                <th>Professor</th>
+                <th class="light-green-bg">20:50 às 22:30</th>
+                <th>Professor</th>
+                <th class="numero-sala">Número da Sala</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="horario : ${horarios}" th:if="${horario.curso == 'Sistemas de Informação' and horario.periodo == 'Periodo 1'}">
+                <td th:text="${horario.diaSemana}">Dia da Semana</td>
+                <td class="light-green-bg editavel" th:text="${horario.disciplina.nome}">Disciplina</td>
+                <td class="editavel" th:text="${horario.professor.nome}">Professor</td>
+                <td class="light-green-bg"></td>
+                <td></td>
+                <td class="numero-sala" th:text="${horario.sala}">Sala</td>
+                <td>
+                    <button class="btn-editar" onclick="editarTabela(this)">Editar</button>
+                    <button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button>
+                </td>
+            </tr>
+            <tr th:each="horario : ${horarios}" th:if="${horario.curso == 'Sistemas de Informação' and horario.periodo == 'Periodo 2'}">
+                <td th:text="${horario.diaSemana}">Dia da Semana</td>
+                <td class="light-green-bg"></td>
+                <td></td>
+                <td class="light-green-bg editavel" th:text="${horario.disciplina.nome}">Disciplina</td>
+                <td class="editavel" th:text="${horario.professor.nome}">Professor</td>
+                <td class="numero-sala" th:text="${horario.sala}">Sala</td>
+                <td>
+                    <button class="btn-editar" onclick="editarTabela(this)">Editar</button>
+                    <button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <h2>Engenharia de Software</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Dia da Semana</th>
+                <th class="light-green-bg">18:50 às 20:30</th>
+                <th>Professor</th>
+                <th class="light-green-bg">20:50 às 22:30</th>
+                <th>Professor</th>
+                <th class="numero-sala">Número da Sala</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="horario : ${horarios}" th:if="${horario.curso == 'Engenharia de Software' and horario.periodo == 'Periodo 1'}">
+                <td th:text="${horario.diaSemana}">Dia da Semana</td>
+                <td class="light-green-bg editavel" th:text="${horario.disciplina.nome}">Disciplina</td>
+                <td class="editavel" th:text="${horario.professor.nome}">Professor</td>
+                <td class="light-green-bg"></td>
+                <td></td>
+                <td class="numero-sala" th:text="${horario.sala}">Sala</td>
+                <td>
+                    <button class="btn-editar" onclick="editarTabela(this)">Editar</button>
+                    <button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button>
+                </td>
+            </tr>
+            <tr th:each="horario : ${horarios}" th:if="${horario.curso == 'Engenharia de Software' and horario.periodo == 'Periodo 2'}">
+                <td th:text="${horario.diaSemana}">Dia da Semana</td>
+                <td class="light-green-bg"></td>
+                <td></td>
+                <td class="light-green-bg editavel" th:text="${horario.disciplina.nome}">Disciplina</td>
+                <td class="editavel" th:text="${horario.professor.nome}">Professor</td>
+                <td class="numero-sala" th:text="${horario.sala}">Sala</td>
+                <td>
+                    <button class="btn-editar" onclick="editarTabela(this)">Editar</button>
+                    <button class="btn-mudar-sala" onclick="mostrarSalas(this)">Mudar Sala</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <button onclick="limparTabelas()">Limpar tudo</button>
+</main>
+<footer>
+    <p>&copy; Guilherme Graper </p>
+</footer>
+</body>
+</html>

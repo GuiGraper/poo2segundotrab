@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Professores</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+</head>
+<header>
+    <h1>Lista de Professores</h1>
+</header>
+<body>
+<nav><!-- Menu de navegação -->
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/colaboradores/form}">Cadastrar Professores</a></li>
+        <li><a th:href="@{/colaboradores/listar}">Listar Professores</a></li>
+        <li><a th:href="@{/disciplinas/form}">Cadastrar Disciplinas</a></li>
+        <li><a th:href="@{/disciplinas/listar}">Listar Disciplinas</a></li>
+        <li><a th:href="@{/horarios/form}">Cadastrar Horários</a></li>
+        <li><a th:href="@{/horarios/listar}">Listar Horários</a></li>
+    </ul>
+</nav><br>
+
+<table>
+    <thead>
+    <tr><!--MUDARR NO CSS AS TABELAS -->
+        <th>ID</th>
+        <th>Nome do Professor</th>
+        <th>Sobrenome</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="colaborador : ${colaboradores}">
+        <td th:text="${colaborador.id}"></td>
+        <td th:text="${colaborador.nome}"></td>
+        <td th:text="${colaborador.funcao}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Disciplinas</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+</head>
+<header>
+    <h1>Lista de Disciplinas</h1>
+</header>
+<nav><!-- Menu de navegação -->
+    <ul>
+        <li><a th:href="@{/}">Início</a></li>
+        <li><a th:href="@{/colaboradores/form}">Cadastrar Professores</a></li>
+        <li><a th:href="@{/colaboradores/listar}">Listar Professores</a></li>
+        <li><a th:href="@{/disciplinas/form}">Cadastrar Disciplinas</a></li>
+        <li><a th:href="@{/disciplinas/listar}">Listar Disciplinas</a></li>
+        <li><a th:href="@{/horarios/form}">Cadastrar Horários</a></li>
+        <li><a th:href="@{/horarios/listar}">Listar Horários</a></li>
+    </ul>
+</nav><br>
+<body>
+<table>
+    <thead>
+    <tr> <!--MUDARR NO CSS AS TABELAS -->
+        <th>ID</th>
+        <th>Sigla da Disciplina</th>
+        <th>Descrição da Disciplina</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="disciplina : ${disciplinas}">
+        <td th:text="${disciplina.id}"></td>
+        <td th:text="${disciplina.nome}"></td>
+        <td th:text="${disciplina.descricao}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
